@@ -10,12 +10,16 @@
 
 typedef unsigned char bitfield_t;
 
+//#define DEBUG 1
+
 void bitfield_display( bitfield_t bitfield ){
 
 	char bitfield_as_str[ 9 ];
 	bzero( bitfield_as_str, 9 );
 
+#ifdef DEBUG
 	printf( "[debug] bitfield_display( ) bitfield: 0x%02x\n", bitfield );
+#endif
 
 	int i;
 	for (i = 128; i > 0; i >>= 1 ){
@@ -69,10 +73,18 @@ int main( int argc, char **argv ){
 
 	bitfield_t bitfield;
 
-	bitfield = 0xAA; // binary 1010 1010
+	bitfield = 0xF0; // binary 1010 1010
 
 	printf( "start\n");
 	bitfield_display( bitfield );
 
+	int i;
+	for( i = 0; i < 16; i++ ){
+		bitfield_rotate_left( &bitfield );
+		bitfield_display( bitfield );
+
+	}
+
 	return 0;
+
 }
